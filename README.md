@@ -6,6 +6,10 @@
 
 <p align="center">Try it out at <a href="https://openbrand.sh">openbrand.sh</a></p>
 
+<p align="center">
+  <img src="public/openbrand.gif" alt="OpenBrand demo" width="600" />
+</p>
+
 Extract brand assets (logos, colors, backdrops, brand name) from any website URL.
 
 ## As an npm package
