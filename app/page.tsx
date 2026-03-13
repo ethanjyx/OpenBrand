@@ -41,6 +41,31 @@ export default async function Home({
           </a>
         </div>
         <UrlForm initialUrl={url} />
+
+        <section className="mt-16">
+          <h2 className="text-xl font-semibold text-neutral-900 mb-4">
+            Get Started
+          </h2>
+          <p className="text-neutral-500 mb-3 text-sm">
+            Install the npm package:
+          </p>
+          <pre className="p-4 rounded-xl bg-neutral-900 text-neutral-100 text-sm overflow-x-auto font-mono mb-4">
+            npm add openbrand
+          </pre>
+          <p className="text-neutral-500 mb-3 text-sm">
+            Extract brand assets from any URL:
+          </p>
+          <pre className="p-4 rounded-xl bg-neutral-900 text-neutral-100 text-sm overflow-x-auto font-mono leading-relaxed mb-4">{`import { extractBrandAssets } from "openbrand";
+
+const brand = await extractBrandAssets("https://stripe.com");
+// brand.brand_name → "Stripe"
+// brand.logos → LogoAsset[]
+// brand.colors → ColorAsset[]
+// brand.backdrop_images → BackdropAsset[]`}</pre>
+          <p className="text-neutral-400 text-sm">
+            Server-side only — requires Node.js or Bun.
+          </p>
+        </section>
       </main>
       <footer className="max-w-4xl mx-auto px-6 pb-10 text-center text-sm text-neutral-400">
         OpenBrand is designed, built, and backed by{" "}
