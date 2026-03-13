@@ -35,7 +35,7 @@
     "start": "next start",
     "lint": "eslint",
     "build:pkg": "tsup",
-    "test": "bun test"
+    "test": "bun test integration_test/"
   },
   "dependencies": {
     "@types/probe-image-size": "^7.2.5",
