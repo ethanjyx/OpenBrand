@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BrandExtractionResult, ExtractionResponse } from "@/src/types";
 import { BrandResults } from "./brand-results";
 
-export function UrlForm() {
-  const [url, setUrl] = useState("");
+export function UrlForm({ initialUrl }: { initialUrl?: string }) {
+  const [url, setUrl] = useState(initialUrl ?? "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<BrandExtractionResult | null>(null);
+  const autoTriggered = useRef(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const extract = useCallback(async (targetUrl: string) => {
     setError(null);
     setResult(null);
 
-    let normalized = url.trim();
+    let normalized = targetUrl.trim();
     if (!/^https?:\/\//i.test(normalized)) {
       normalized = `https://${normalized}`;
     }
@@ -41,6 +41,18 @@ export function UrlForm() {
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    if (initialUrl && !autoTriggered.current) {
+      autoTriggered.current = true;
+      extract(initialUrl);
+    }
+  }, [initialUrl, extract]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    extract(url);
   };
 
   return (
