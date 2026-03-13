@@ -32,6 +32,7 @@ export default async function DashboardPage() {
             <p className="text-neutral-500">Manage your API keys</p>
           </div>
           <div className="flex items-center gap-4 text-sm">
+            <SignOutButton />
             <a
               href="https://github.com/ethanjyx/openbrand"
               target="_blank"
@@ -44,7 +45,6 @@ export default async function DashboardPage() {
                 className="h-6"
               />
             </a>
-            <SignOutButton />
           </div>
         </div>
         <ApiKeyManager />
