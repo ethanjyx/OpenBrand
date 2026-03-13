@@ -9,21 +9,27 @@ const USER_AGENT =
 const MIN_BODY_LENGTH = 500;
 
 export async function extractBrandAssets(url: string) {
-  let html = await fetchPage(url);
+  const { html: directHtml, ok } = await fetchPage(url);
 
+  let html = directHtml;
   const $ = cheerio.load(html);
   const bodyText = $("body").text().trim();
 
-  if (bodyText.length < MIN_BODY_LENGTH) {
+  // Fall back to Jina when the direct fetch failed (non-2xx) or returned too little content
+  if (!ok || bodyText.length < MIN_BODY_LENGTH) {
     const jinaHtml = await fetchViaJina(url);
-    if (!jinaHtml) return null;
-    html = jinaHtml;
+    if (jinaHtml) {
+      html = jinaHtml;
+    } else if (!ok) {
+      // Direct fetch was non-2xx and Jina also failed
+      return null;
+    }
   }
 
   return parseHtml(html, url);
 }
 
-async function fetchPage(url: string): Promise<string> {
+async function fetchPage(url: string): Promise<{ html: string; ok: boolean }> {
   const res = await fetch(url, {
     headers: {
       "User-Agent": USER_AGENT,
@@ -34,11 +40,7 @@ async function fetchPage(url: string): Promise<string> {
     redirect: "follow",
   });
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch ${url}: ${res.status}`);
-  }
-
-  return res.text();
+  return { html: await res.text(), ok: res.ok };
 }
 
 async function fetchViaJina(url: string): Promise<string | null> {
