@@ -13,7 +13,7 @@
 
 Extract brand assets (logos, colors, backdrops, brand name) from any website URL.
 
-## API Key
+## With an API call
 
 Get your free API key from [openbrand.sh/dashboard](https://openbrand.sh/dashboard).
 
