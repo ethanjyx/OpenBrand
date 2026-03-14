@@ -32,7 +32,7 @@ export default async function DashboardPage() {
             </a>
             <p className="text-neutral-500">Manage your API keys</p>
           </div>
-          <div className="flex items-center gap-4 text-sm">
+          <div className="flex shrink-0 items-center gap-4 text-sm">
             <SignOutButton />
             <a
               href="https://github.com/ethanjyx/openbrand"
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
               <img
                 alt="GitHub stars"
                 src="https://img.shields.io/github/stars/ethanjyx/openbrand?style=social"
-                className="h-6"
+                className="h-6 w-auto"
               />
             </a>
           </div>
