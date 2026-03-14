@@ -15,9 +15,41 @@ Extract brand assets (logos, colors, backdrops, brand name) from any website URL
 
 ## API Key
 
-Get your free API key from [openbrand.sh/dashboard](https://openbrand.sh/dashboard). Required for the MCP server.
+Get your free API key from [openbrand.sh/dashboard](https://openbrand.sh/dashboard).
+
+**cURL**
+
+```bash
+curl "https://openbrand.sh/api/extract?url=https://stripe.com" \
+  -H "Authorization: Bearer your_api_key"
+```
+
+**TypeScript**
+
+```typescript
+const res = await fetch(
+  "https://openbrand.sh/api/extract?url=https://stripe.com",
+  { headers: { Authorization: "Bearer your_api_key" } }
+);
+const brand = await res.json();
+```
+
+**Python**
+
+```python
+import requests
+
+res = requests.get(
+    "https://openbrand.sh/api/extract",
+    params={"url": "https://stripe.com"},
+    headers={"Authorization": "Bearer your_api_key"},
+)
+brand = res.json()
+```
 
 ## As an [npm package](https://www.npmjs.com/package/openbrand)
+
+No API key required. Runs as a library from your server-side code.
 
 ```bash
 npm add openbrand
@@ -32,8 +64,6 @@ const brand = await extractBrandAssets("https://stripe.com");
 // brand.colors → ColorAsset[]
 // brand.backdrop_images → BackdropAsset[]
 ```
-
-Server-side only (requires Node.js/Bun for cheerio and sharp).
 
 ## As an [MCP server](https://www.npmjs.com/package/openbrand-mcp)
 

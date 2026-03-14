@@ -105,7 +105,7 @@ function SelfHostingContent() {
         npm add openbrand
       </pre>
       <p className="text-neutral-400 text-sm mb-4">
-        Server-side only - requires Node.js or Bun.
+        No API key required. Runs as a library from your server-side code.
       </p>
       <p className="text-neutral-500 mb-3 text-sm">
         Extract brand assets from any URL:
