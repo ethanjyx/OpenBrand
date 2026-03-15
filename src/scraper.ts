@@ -82,6 +82,7 @@ async function fetchPage(url: string): Promise<{ html: string; ok: boolean; stat
       "Accept-Language": "en-US,en;q=0.5",
     },
     redirect: "follow",
+    signal: AbortSignal.timeout(15_000),
   });
 
   return { html: await res.text(), ok: res.ok, status: res.status };
@@ -94,6 +95,7 @@ async function fetchViaJina(url: string): Promise<string | null> {
         Accept: "text/html",
         "X-Return-Format": "html",
       },
+      signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) return null;
     return res.text();
